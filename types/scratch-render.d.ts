@@ -92,6 +92,9 @@ declare namespace RenderWebGL {
   }
 
   class Silhouette {
+    // TW
+    unlazy(): void;
+
     static _updateCanvas(): HTMLCanvasElement;
 
     _width: number;
@@ -114,10 +117,14 @@ declare namespace RenderWebGL {
   }
 
   interface SkinEventMap {
-    WasAltered: void;
+    // TW: removed WasAltered
   }
 
   class Skin extends EventEmitter<SkinEventMap> {
+    // TW
+    _renderer: RenderWebGL;
+    emitWasAltered(): void;
+
     _id: number;
     get id(): number;
 
@@ -396,6 +403,10 @@ declare namespace RenderWebGL {
   }
 
   interface ScratchRenderEventMap {
+    // TW
+    UseHighQualityRenderChanged: [boolean];
+    AllowPrivateSkinAccessChanged: [boolean];
+
     NativeSizeChanged: {
       newSize: [number, number];
     }
@@ -403,6 +414,21 @@ declare namespace RenderWebGL {
 }
 
 declare class RenderWebGL extends EventEmitter<RenderWebGL.ScratchRenderEventMap> {
+  // TW
+  static powerPreference: WebGLPowerPreference;
+  /**
+   * aka high quality pen.
+   */
+  useHighQualityRender: boolean;
+  offscreenTouching: boolean;
+  dirty: boolean;
+  allowPrivateSkinAccess: boolean;
+  setUseHighQualityRender(enabled: boolean): void;
+  _updateRenderQuality(): void;
+  setPrivateSkinAccess(enabled: boolean): void;
+  markSkinAsPrivate(skinId: number): void;
+  skinWasAltered(skin: RenderWebGL.Skin): void;
+
   static isSupported(canvas?: HTMLCanvasElement): boolean;
 
   /**
