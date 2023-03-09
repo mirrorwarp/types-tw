@@ -1,6 +1,6 @@
 # Type definitions for TurboWarp
 
-This is a branch of TurboWarp/types with additional types for TurboWarp's Scratch forks.
+This is a fork of [@turbowarp/types](https://github.com/TurboWarp/types) with additional types for TurboWarp's Scratch forks.
 
 Install with:
 
@@ -94,6 +94,7 @@ vm.loadProject(/* read a project somehow */ new ArrayBuffer(100))
     vm.greenFlag();
   });
 ```
+-->
 
 ## Tests
 
@@ -104,4 +105,3 @@ There are some tests in the `tests` folder. These files are never actually run, 
 Type definitions and test code are licensed under the Apache 2.0 license.
 
 The libraries being documented may be under different licenses.
--->
