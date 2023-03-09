@@ -1,4 +1,42 @@
+/// <reference path="./scratch-vm.d.ts" />
+/// <reference path="./scratch-render.d.ts" />
 declare namespace Scratch {
+  // TW
+  const vm: VM;
+  const renderer: RenderWebGL;
+  function fetch(url: string, options?: Request): Promise<Response>;
+  function canFetch(url: string): Promise<boolean>;
+  function openWindow(url: string, features?: string): Promise<Window | null>;
+  function canOpenWindow(url: string): Promise<boolean>;
+  function canRedirect(url: string): Promise<void>;
+  function canRedirect(url: string): Promise<boolean>;
+  namespace Cast {
+    function toNumber(value: unknown): number;
+    function toString(value: unknown): string;
+    function toBoolean(value: unknown): boolean;
+    /**
+     * @returns 0 if a == b, less than 0 if b is greater, greater than 0 if a is greater.
+     * Do not compare to 1 or -1! You must always use === 0, < 0, or > 0.
+     */
+    function compare(a: unknown, b: unknown): number;
+    /**
+     * @returns all channels 0-255
+     */
+    function toRgbColorList(value: unknown): [number, number, number];
+    /**
+     * @returns all channels 0-255
+     */
+    function toRgbColorObject(value: unknown): {r: number, g: number, b: number, a: number};
+    /**
+     * note: for compatibility with a Scratch bug this returns false for tab characters ('\t')
+     */
+    function isWhiteSpace(value: unknown): boolean;
+    function isInt(value: unknown): boolean;
+    const LIST_INVALID = 'INVALID';
+    const LIST_ALL = 'ALL';
+    function toListIndex(index: unknown, length: number, acceptAll: boolean): number | 'INVALID' | 'ALL';
+  }
+
   // Note that the 'B' in the BOOLEAN enums are capitalized in Scratch. It is not a typo in this file.
 
   namespace ArgumentType {
