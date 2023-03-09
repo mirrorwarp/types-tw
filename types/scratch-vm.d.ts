@@ -10,6 +10,51 @@
 /// <reference path="./scratch-svg-renderer.d.ts" />
 
 declare namespace VM {
+  // TW
+  interface RuntimeOptions {
+    maxClones: number;
+    miscLimits: boolean;
+    fencing: boolean;
+  }
+  interface CompilerOptions {
+    enabled: boolean;
+    warpTimer: boolean;
+  }
+  interface CloudOptions {
+    limit: number;
+  }
+  interface FrameLoop {
+    runtime: Runtime;
+    running: boolean;
+    framerate: number;
+    interpolation: number;
+    setFramerate(framerate: number): void;
+    setInterpolation(interpolation: boolean): void;
+    stepCallback(): void;
+    interpolationCallback(): void;
+    _restart(): void;
+    start(): void;
+    stop(): void;
+  }
+  interface AddonBlockOptions {
+    procedureCode: string;
+    callback(args: Record<string, string | number | boolean>, util: BlockUtility): void;
+    arguments: string[];
+    hidden?: boolean;
+  }
+  interface AddonBlock extends AddonBlockOptions {
+    namesIdsDefaults: [string[], string[], string[]];
+  }
+  type Awaitable<T> = T | Promise<T>;
+  interface SecurityManager {
+    getSandboxMode(url: string): Awaitable<'worker' | 'iframe' | 'unsandboxed'>;
+    canLoadExtensionFromProject(url: string): Awaitable<boolean>;
+    canFetch(url: string): Awaitable<boolean>;
+    canOpenWindow(url: string): Awaitable<boolean>;
+    canRedirect(url: string): Awaitable<boolean>;
+  }
+  // TW end
+
   /**
    * Indicates the type is dependent on the existence of a renderer.
    */
@@ -691,6 +736,13 @@ declare namespace VM {
   }
 
   interface Thread {
+    // TW
+    isCompiled: boolean;
+    tryCompile(): void;
+    triedToCompile: boolean;
+    generator: Generator | null;
+    getId(): string;
+
     topBlock: string;
     stack: string[];
     stackFrames: StackFrame[];
@@ -758,6 +810,9 @@ declare namespace VM {
   }
 
   interface ExtensionManager {
+    // TW
+    securityManager: SecurityManager;
+
     runtime: Runtime;
 
     isExtensionLoaded(extensionID: string): boolean;
@@ -933,6 +988,14 @@ declare namespace VM {
   }
 
   interface RuntimeAndVirtualMachineEventMap {
+    // TW
+    RUNTIME_OPTIONS_CHANGED: [RuntimeOptions];
+    COMPILER_OPTIONS_CHANGED: [CompilerOptions];
+    FRAMERATE_CHANGED: [number];
+    INTERPOLATION_CHANGED: [boolean];
+    STAGE_SIZE_CHANGED: [number, number];
+    COMPILE_ERROR: [Target, unknown];
+    
     SCRIPT_GLOW_ON: [{
       id: string;
     }];
@@ -1060,6 +1123,44 @@ declare namespace VM {
   }
 
   interface Runtime extends EventEmitter<RuntimeEventMap> {
+    // TW
+    threadMap: Map<string, Thread>;
+    frameLoop: FrameLoop;
+    cloudOptions: CloudOptions;
+    addonBlocks: Record<string, AddonBlock>;
+    stageWidth: number;
+    stageHeight: number;
+    runtimeOptions: RuntimeOptions;
+    compilerOptions: CompilerOptions;
+    debug: boolean;
+    _lastStepTime: number;
+    interpolationEnabled: boolean;
+    isPackaged: boolean;
+    externalCommunicationMethods: Record<string, boolean>;
+    enforcePrivacy: boolean;
+    extensionManager: ExtensionManager;
+    emitCompileError(target: Target, error: unknown): void;
+    setFramerate(framerate: number): void;
+    setInterpolation(interpolation: boolean): void;
+    setRuntimeOptions(runtimeOptions: Partial<RuntimeOptions>): void;
+    setCompilerOptions(compilerOptions: Partial<CompilerOptions>): void;
+    setStageSize(width: number, height: number): void;
+    setInEditor(inEditor: boolean): void;
+    convertToPackagedRuntime(): void;
+    resetAllCaches(): void;
+    addAddonBlock(addonBlock: AddonBlockOptions): void;
+    getAddonBlock(procedureCode: string): AddonBlock;
+    findProjectOptionsComment(): Comment | null;
+    parseProjectOptions(): void;
+    _generateAllProjectOptions(): unknown; // TODO
+    generateDifferingProjectOptions(): unknown; // TODO
+    storeProjectOptions(): void;
+    precompile(): void;
+    enableDebug(): void;
+    setEnforcePrivacy(enforcePrivacy: boolean): void;
+    setExternalCommunicationMethod(method: string, enabled: boolean): void;
+    updatePrivacy(): void;
+
     /**
      * Start the runtime's event loop. This doesn't start any scripts.
      */
@@ -1346,6 +1447,26 @@ declare namespace VM {
 }
 
 declare class VM extends EventEmitter<VM.VirtualMachineEventMap> {
+  // TW
+  saveProjectSb3Stream(): JSZip.StreamHelper<'arraybuffer'>;
+  saveProjectSb3Stream<T extends keyof JSZip.OutputTypes>(type: T): JSZip.StreamHelper<T>;
+  saveProjectSb3DontZip(): Record<string, Uint8Array>;
+  stop(): void;
+  setFramerate(framerate: number): void;
+  setInterpolation(interpolation: number): void;
+  setCompilerOptions(compilerOptions: Partial<VM.CompilerOptions>): void;
+  setRuntimeOptions(runtimeOptions: Partial<VM.RuntimeOptions>): void;
+  setStageSize(width: number, height: number): void;
+  setInEditor(inEditor: boolean): void;
+  convertToPackagedRuntime(): void;
+  addAddonBlock(): void;
+  getAddonBlock(procedureCode: string): VM.AddonBlock;
+  storeProjectOptions(): void;
+  enableDebug(): string;
+  getExportedCostume(costume: VM.Costume): Uint8Array;
+  getExportedCostumeBase64(costume: VM.Costume): string;
+  securityManager: VM.SecurityManager;
+
   constructor();
 
   runtime: VM.Runtime;
@@ -1442,6 +1563,8 @@ declare class VM extends EventEmitter<VM.VirtualMachineEventMap> {
   /**
    * the project to a compressed sb3 file.
    */
+  // TW
+  saveProjectSb3<T extends keyof JSZip.OutputTypes>(type: T): Promise<JSZip.OutputTypes[T]>;
   saveProjectSb3(): Promise<Blob>;
 
   toJSON(targetId?: string): string;
