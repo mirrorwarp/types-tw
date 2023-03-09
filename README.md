@@ -1,3 +1,16 @@
+# Type definitions for TurboWarp
+
+This is a branch of TurboWarp/types with additional types for TurboWarp's Scratch forks.
+
+Install with:
+
+```
+npm install @turbowarp/types-tw
+```
+
+Then use in the same way as @turbowarp/types, but replace @turbowarp/types with @turbowarp/types-tw.
+
+<!--
 # Type definitions for the Scratch VM and editor
 
 Scratch doesn't provide type definitions for their libraries, so we wrote our own.
@@ -91,3 +104,4 @@ There are some tests in the `tests` folder. These files are never actually run, 
 Type definitions and test code are licensed under the Apache 2.0 license.
 
 The libraries being documented may be under different licenses.
+-->
