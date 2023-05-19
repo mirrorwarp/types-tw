@@ -334,7 +334,7 @@ declare namespace VM {
     };
   }
 
-  interface BaseTarget extends EventEmitter<{}> {
+  interface BaseTarget extends EventEmitter<RenderedTargetEventMap> {
     runtime: Runtime;
 
     id: string;
@@ -401,7 +401,9 @@ declare namespace VM {
   }
 
   interface RenderedTargetEventMap {
-    // TODO
+    TARGET_MOVED: [RenderedTarget, number, number, boolean?];
+
+    EVENT_TARGET_VISUAL_CHANGE: [RenderedTarget];
   }
 
   const enum Effect {
@@ -1091,7 +1093,12 @@ declare namespace VM {
   interface RuntimeEventMap extends RuntimeAndVirtualMachineEventMap {
     PROJECT_STOP_ALL: [];
 
-    STOP_FOR_TARGET: [BaseTarget, Thread | undefined];
+    STOP_FOR_TARGET: [
+      // Target whose scripts are being stopped
+      Target,
+      // Optional thread exception to keep running
+      Thread | undefined
+    ];
 
     PROJECT_LOADED: [];
 
@@ -1238,7 +1245,7 @@ declare namespace VM {
     getTargetById(targetId: string): Target | undefined;
 
     /**
-     * Find a sprite's original target (not a clone) using the sprite's name.
+     * Find a sprite's original target (not a clone or stage) using the sprite's name.
      * Returns undefined if the target doesn't exist.
      */
     getSpriteTargetByName(spriteName: string): Target | undefined;
@@ -1407,6 +1414,7 @@ declare namespace VM {
 
     emitProjectChanged(): void;
 
+    _editingTarget: Target | null;
     getEditingTarget(): Target | null;
 
     setEditingTarget(target: Target): void;
@@ -1697,7 +1705,7 @@ declare class VM extends EventEmitter<VM.VirtualMachineEventMap> {
   * Emit a workspaceUpdate event.
   */
   emitWorkspaceUpdate(): void;
-   
+
   /**
    * Post sprite info to the target that's being dragged, otherwise the editing target.
    * @see {VM.Target.postSpriteInfo}

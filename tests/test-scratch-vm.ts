@@ -46,9 +46,26 @@ if (target) {
     bubbleState.text.charAt(0);
     target.setCustomState('Scratch.looks', bubbleState);
   }
+
+  target.on('TARGET_MOVED', (target, fromX, fromY, forced) => {
+    const id: string = target.id;
+    const x: number = fromX;
+    const y: number = fromY;
+    const f: boolean | undefined = forced;
+  })
+  target.on('EVENT_TARGET_VISUAL_CHANGE', (target) => {
+    const id: string = target.id;
+  });
+
+  runtime.on('STOP_FOR_TARGET', (t: VM.RenderedTarget) => {
+
+  });
 } else {
   const doesNotExist: undefined = target;
 }
+
+runtime._editingTarget as VM.Target;
+runtime.getEditingTarget() as VM.Target;
 
 const audioEngine = new AudioEngine();
 vm.attachAudioEngine(audioEngine);
