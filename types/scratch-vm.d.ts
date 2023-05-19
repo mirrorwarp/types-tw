@@ -96,7 +96,8 @@ declare namespace VM {
 
     name: string;
 
-    asset: ScratchStorage.Asset;
+    /** TW: asset may be null in packaged runtime mode (runtime.isPackaged) */
+    asset: ScratchStorage.Asset | null;
   }
 
   interface Costume extends BaseAsset {
