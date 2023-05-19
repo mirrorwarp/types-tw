@@ -48,6 +48,10 @@ declare namespace Scratch {
     const NOTE: 'note';
     const NUMBER: 'number';
     const STRING: 'string';
+    // TW
+    const SOUND: 'sound';
+    const COSTUME: 'costume';
+    const LABEL: 'label';
   }
 
   namespace BlockType {
