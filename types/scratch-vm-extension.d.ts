@@ -4,12 +4,17 @@ declare namespace Scratch {
   // TW
   const vm: VM;
   const renderer: RenderWebGL;
+  type Awaitable<T> = Promise<T> | T;
   function fetch(url: string, options?: Request): Promise<Response>;
-  function canFetch(url: string): Promise<boolean>;
+  function canFetch(url: string): Awaitable<boolean>;
   function openWindow(url: string, features?: string): Promise<Window | null>;
-  function canOpenWindow(url: string): Promise<boolean>;
-  function canRedirect(url: string): Promise<void>;
-  function canRedirect(url: string): Promise<boolean>;
+  function canOpenWindow(url: string): Awaitable<boolean>;
+  function redirect(url: string): Promise<void>;
+  function canRedirect(url: string): Awaitable<boolean>;
+  function canRecordAudio(): Awaitable<boolean>;
+  function canRecordVideo(): Awaitable<boolean>;
+  function canReadClipboard(): Awaitable<boolean>;
+  function canNotify(): Awaitable<boolean>;
   namespace Cast {
     function toNumber(value: unknown): number;
     function toString(value: unknown): string;
@@ -157,7 +162,7 @@ declare namespace Scratch {
   }
   interface ButtonBlock extends AbstractBlock {
     blockType: 'button';
-    func: 'MAKE_A_LIST' | 'MAKE_A_PROCEDURE' | 'MAKE_A_VARIABLE';
+    func: 'MAKE_A_LIST' | 'MAKE_A_PROCEDURE' | 'MAKE_A_VARIABLE' | string; // TW - can be any string
   }
   interface CommandBlock extends ExecutableBlock {
     blockType: 'command';
