@@ -52,8 +52,11 @@ declare namespace VM {
     canFetch(url: string): Awaitable<boolean>;
     canOpenWindow(url: string): Awaitable<boolean>;
     canRedirect(url: string): Awaitable<boolean>;
+    canRecordAudio(): Awaitable<boolean>;
+    canRecordVideo(): Awaitable<boolean>;
+    canReadClipboard(): Awaitable<boolean>;
+    canNotify(): Awaitable<boolean>;
   }
-  // TW end
 
   /**
    * Indicates the type is dependent on the existence of a renderer.
@@ -1092,6 +1095,10 @@ declare namespace VM {
   }
 
   interface RuntimeEventMap extends RuntimeAndVirtualMachineEventMap {
+    // TW
+    BEFORE_EXECUTE: [];
+    AFTER_EXECUTE: [];
+
     PROJECT_STOP_ALL: [];
 
     STOP_FOR_TARGET: [
@@ -1475,6 +1482,14 @@ declare class VM extends EventEmitter<VM.VirtualMachineEventMap> {
   getExportedCostume(costume: VM.Costume): Uint8Array;
   getExportedCostumeBase64(costume: VM.Costume): string;
   securityManager: VM.SecurityManager;
+  exports: {
+    Sprite: {
+      new(blocks: VM.Blocks | null, runtime: VM.Runtime): VM.Sprite;
+    };
+    RenderedTarget: {
+      new(sprite: VM.Sprite, runtime: VM.Runtime): VM.RenderedTarget;
+    }
+  };
 
   constructor();
 

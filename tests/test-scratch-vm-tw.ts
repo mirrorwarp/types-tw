@@ -11,3 +11,9 @@ vm.saveProjectSb3Stream() as JSZip.StreamHelper<'arraybuffer'>;
 vm.saveProjectSb3Stream('blob') as JSZip.StreamHelper<'blob'>;
 
 vm.setStageSize(480, 360);
+
+const Sprite = vm.exports.Sprite;
+const RenderedTarget = vm.exports.RenderedTarget;
+const sprite = new Sprite(null, vm.runtime);
+const target = new RenderedTarget(sprite, vm.runtime);
+target.setXY(10, 10);
