@@ -4,17 +4,18 @@ declare namespace Scratch {
   // TW
   const vm: VM;
   const renderer: RenderWebGL;
-  type Awaitable<T> = Promise<T> | T;
+  // Permission requests here always return a promise, but the security manager methods themselves
+  // can return either a boolean or promise.
   function fetch(url: string, options?: Request): Promise<Response>;
-  function canFetch(url: string): Awaitable<boolean>;
+  function canFetch(url: string): Promise<boolean>;
   function openWindow(url: string, features?: string): Promise<Window | null>;
-  function canOpenWindow(url: string): Awaitable<boolean>;
+  function canOpenWindow(url: string): Promise<boolean>;
   function redirect(url: string): Promise<void>;
-  function canRedirect(url: string): Awaitable<boolean>;
-  function canRecordAudio(): Awaitable<boolean>;
-  function canRecordVideo(): Awaitable<boolean>;
-  function canReadClipboard(): Awaitable<boolean>;
-  function canNotify(): Awaitable<boolean>;
+  function canRedirect(url: string): Promise<boolean>;
+  function canRecordAudio(): Promise<boolean>;
+  function canRecordVideo(): Promise<boolean>;
+  function canReadClipboard(): Promise<boolean>;
+  function canNotify(): Promise<boolean>;
   namespace Cast {
     function toNumber(value: unknown): number;
     function toString(value: unknown): string;

@@ -59,9 +59,12 @@
       };
     }
     async hello () {
-      // @ts-expect-error
-      Scratch.canOpenWindow().then(() => {});
-      if (await Scratch.canNotify()) {
+      Scratch.canOpenWindow('https://example.com/').then((allowed) => {
+        if (allowed === true) {
+          // ...
+        }
+      });
+      if ((await Scratch.canNotify()) === true) {
         // ...
       }
       alert('>:]');
