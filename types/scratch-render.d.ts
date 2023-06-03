@@ -109,11 +109,8 @@ declare namespace RenderWebGL {
     isTouchingLinear(textureCoordinate: twgl.V3): void;
   }
 
-  interface SkinEventMap {
-    // TW: removed WasAltered
-  }
-
-  class Skin extends EventEmitter<SkinEventMap> {
+  // TW: Skin is not an EventListener
+  class Skin {
     // TW
     _renderer: RenderWebGL;
     emitWasAltered(): void;
@@ -421,6 +418,31 @@ declare class RenderWebGL extends EventEmitter<RenderWebGL.ScratchRenderEventMap
   setPrivateSkinAccess(enabled: boolean): void;
   markSkinAsPrivate(skinId: number): void;
   skinWasAltered(skin: RenderWebGL.Skin): void;
+  createTextWrapper(measurementProvider: RenderWebGL.CanvasMeasurementProvider): RenderWebGL.TextWrapper;
+  exports: {
+    twgl: object, // TODO
+    Drawable: {
+      new(id: number, renderer: RenderWebGL): RenderWebGL.Drawable;
+    };
+    Skin: {
+      new(id: number, renderer: RenderWebGL): RenderWebGL.Skin;
+    };
+    BitmapSkin: {
+      new(id: number, renderer: RenderWebGL): RenderWebGL.BitmapSkin;
+    };
+    TextBubbleSkin: {
+      new(id: number, renderer: RenderWebGL): RenderWebGL.TextBubbleSkin;
+    };
+    PenSkin: {
+      new(id: number, renderer: RenderWebGL): RenderWebGL.PenSkin;
+    }
+    SVGSkin: {
+      new(id: number, renderer: RenderWebGL): RenderWebGL.SVGSkin;
+    }
+    CanvasMeasurementProvider: {
+      new(ctx: CanvasRenderingContext2D): RenderWebGL.CanvasMeasurementProvider;
+    }
+  }
 
   static isSupported(canvas?: HTMLCanvasElement): boolean;
 
