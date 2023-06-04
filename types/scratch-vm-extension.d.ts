@@ -46,6 +46,10 @@ declare namespace Scratch {
   // Note that the 'B' in the BOOLEAN enums are capitalized in Scratch. It is not a typo in this file.
 
   namespace ArgumentType {
+    // TW
+    const SOUND: 'sound';
+    const COSTUME: 'costume';
+    
     const ANGLE: 'angle';
     const BOOLEAN: 'Boolean';
     const COLOR: 'color';
@@ -54,13 +58,12 @@ declare namespace Scratch {
     const NOTE: 'note';
     const NUMBER: 'number';
     const STRING: 'string';
-    // TW
-    const SOUND: 'sound';
-    const COSTUME: 'costume';
-    const LABEL: 'label';
   }
 
   namespace BlockType {
+    // TW
+    const LABEL: 'label';
+
     const BOOLEAN: 'Boolean';
     const BUTTON: 'button';
     const COMMAND: 'command';
@@ -79,6 +82,14 @@ declare namespace Scratch {
     const STAGE: 'stage';
   }
 
+  // TW
+  interface SoundArgument {
+    type: 'sound';
+  }
+  interface CostumeArgument {
+    type: 'costume';
+  }
+  
   interface AngleArgument {
     type: 'angle';
     /**
@@ -137,6 +148,10 @@ declare namespace Scratch {
     flipRTL?: boolean;
   }
   type Argument = (
+    // TW
+    CostumeArgument |
+    SoundArgument |
+    
     AngleArgument |
     BooleanArgument |
     ColorArgument |
@@ -146,6 +161,11 @@ declare namespace Scratch {
     NoteArgument |
     ImageArgument
   );
+
+  // TW
+  interface LabelBlock extends AbstractBlock {
+    blockType: 'label';
+  }
 
   interface AbstractBlock {
     text: string | string[];
@@ -225,6 +245,9 @@ declare namespace Scratch {
     branchCount?: number;
   }
   type Block = (
+    // TW
+    LabelBlock |
+
     BooleanBlock |
     ButtonBlock |
     CommandBlock |

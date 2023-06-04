@@ -72,3 +72,38 @@
   }
   Scratch.extensions.register(new Test());
 })(Scratch);
+
+(function(Scratch) {
+  'use strict';
+  class Test {
+    getInfo() {
+      return {
+        id: 'testlabel',
+        name: 'Label',
+        blocks: [
+          {
+            blockType: Scratch.BlockType.LABEL,
+            text: 'test 123 :) <>&%"'
+          },
+          {
+            blockType: Scratch.BlockType.COMMAND,
+            text: 'do something [SOUND] [COSTUME]',
+            opcode: 'test',
+            arguments: {
+              SOUND: {
+                type: Scratch.ArgumentType.SOUND
+              },
+              COSTUME: {
+                type: Scratch.ArgumentType.COSTUME
+              }
+            }
+          }
+        ]
+      };
+    }
+    test () {
+
+    }
+  }
+  Scratch.extensions.register(new Test());
+})(Scratch);
