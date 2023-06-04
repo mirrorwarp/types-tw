@@ -258,6 +258,8 @@ declare namespace Scratch {
     LoopBlock
   );
 
+  type Separator = '---';
+
   interface Menu {
     acceptReporters?: boolean;
     /**
@@ -304,7 +306,7 @@ declare namespace Scratch {
 
     docsURI?: string;
 
-    blocks: (Block | string)[];
+    blocks: (Block | Separator)[];
     menus?: Record<string, Menu | string[]>;
   }
 
