@@ -107,3 +107,25 @@
   }
   Scratch.extensions.register(new Test());
 })(Scratch);
+
+let list = [1, 2, 3, 4, 5];
+let index1 = Scratch.Cast.toListIndex(2, list.length, false);
+if (index1 !== 'INVALID') {
+  list[index1];
+}
+let index2 = Scratch.Cast.toListIndex(2, list.length, true);
+if (index2 !== 'INVALID') {
+  // @ts-expect-error
+  list[index2];
+  if (index2 !== 'ALL') {
+    list[index2];
+  }
+}
+let index3 = Scratch.Cast.toListIndex(2, list.length, Math.random() > 0.5);
+if (index3 !== 'INVALID') {
+  // @ts-expect-error
+  list[index3];
+  if (index3 !== 'ALL') {
+    list[index3];
+  }
+}

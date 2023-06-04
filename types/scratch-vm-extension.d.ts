@@ -40,6 +40,8 @@ declare namespace Scratch {
     function isInt(value: unknown): boolean;
     const LIST_INVALID = 'INVALID';
     const LIST_ALL = 'ALL';
+    function toListIndex(index: unknown, length: number, acceptAll: false): number | 'INVALID';
+    function toListIndex(index: unknown, length: number, acceptAll: true): number | 'INVALID' | 'ALL';
     function toListIndex(index: unknown, length: number, acceptAll: boolean): number | 'INVALID' | 'ALL';
   }
 
