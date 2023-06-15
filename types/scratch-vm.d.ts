@@ -1147,6 +1147,11 @@ declare namespace VM {
     debug: boolean;
     _lastStepTime: number;
     interpolationEnabled: boolean;
+    /**
+     * This refers to the "Remove raw asset data after loading to save RAM" option in the packager.
+     * Thus, this may be false even when the project has been packaged.
+     * To detect the packager, detect the precense of {@link scaffolding} instead.
+     */
     isPackaged: boolean;
     externalCommunicationMethods: Record<string, boolean>;
     enforcePrivacy: boolean;

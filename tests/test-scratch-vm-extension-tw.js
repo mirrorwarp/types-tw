@@ -129,3 +129,7 @@ if (index3 !== 'INVALID') {
     list[index3];
   }
 }
+
+if (typeof scaffolding !== 'undefined') {
+  // ...
+}
