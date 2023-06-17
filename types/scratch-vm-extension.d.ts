@@ -21,7 +21,7 @@ declare namespace Scratch {
   const renderer: RenderWebGL;
   // Permission requests here always return a promise, but the security manager methods themselves
   // can return either a boolean or promise.
-  function fetch(url: string, options?: Request): Promise<Response>;
+  function fetch(url: string, options?: RequestInit): Promise<Response>;
   function canFetch(url: string): Promise<boolean>;
   function openWindow(url: string, features?: string): Promise<Window | null>;
   function canOpenWindow(url: string): Promise<boolean>;

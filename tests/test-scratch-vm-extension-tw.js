@@ -133,3 +133,9 @@ if (index3 !== 'INVALID') {
 if (typeof scaffolding !== 'undefined') {
   // ...
 }
+
+Scratch.fetch('https://example.com', {
+  headers: {
+    'Content-Type': 'application/json'
+  }
+});
