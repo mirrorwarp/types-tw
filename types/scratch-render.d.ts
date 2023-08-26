@@ -5,6 +5,14 @@
 /// <reference path="./events.d.ts" />
 
 declare namespace RenderWebGL {
+  // TW
+  type OverlayMode = 'scale' | 'scale-centered' | 'manual';
+  interface Overlay {
+    mode: OverlayMode;
+    root: HTMLElement;
+    userElement: HTMLElement;
+  }
+
   type AnyWebGLContext = WebGLRenderingContext | WebGL2RenderingContext;
 
   type BitmapResolution = 1 | 2;
@@ -422,6 +430,10 @@ declare class RenderWebGL extends EventEmitter<RenderWebGL.ScratchRenderEventMap
   customFonts: Record<string, string>;
   _customFontStyles: HTMLStyleElement | null;
   setCustomFonts(customFonts: Record<string, string>): void;
+  addOverlay(element: HTMLElement, mode?: RenderWebGL.OverlayMode): RenderWebGL.Overlay;
+  removeOverlay(element: HTMLElement): void;
+  _overlays: RenderWebGL.Overlay[];
+  _updateOverlays(): void;
   exports: {
     twgl: object, // TODO
     Drawable: {

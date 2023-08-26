@@ -29,3 +29,7 @@ const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 const measurementProvider = new renderer.exports.CanvasMeasurementProvider(ctx);
 const wrapper = renderer.createTextWrapper(measurementProvider);
 wrapper.wrapText(50, 'hello');
+
+const overlay = renderer.addOverlay(document.createElement('div'), 'manual');
+overlay.mode = 'scale';
+renderer._updateOverlays();
