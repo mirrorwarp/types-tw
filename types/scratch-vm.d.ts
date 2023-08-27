@@ -1502,7 +1502,7 @@ declare class VM extends EventEmitter<VM.VirtualMachineEventMap> {
   saveProjectSb3DontZip(): Record<string, Uint8Array>;
   stop(): void;
   setFramerate(framerate: number): void;
-  setInterpolation(interpolation: number): void;
+  setInterpolation(interpolation: boolean): void;
   setCompilerOptions(compilerOptions: Partial<VM.CompilerOptions>): void;
   setRuntimeOptions(runtimeOptions: Partial<VM.RuntimeOptions>): void;
   setStageSize(width: number, height: number): void;
