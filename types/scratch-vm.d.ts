@@ -861,7 +861,7 @@ declare namespace VM {
     /**
      * Load a remote extension. Does not work on scratch.mit.edu.
      */
-    loadExtensionURL(extensionID: string): void;
+    loadExtensionURL(extensionID: string): Promise<number>;
   }
 
   /**
