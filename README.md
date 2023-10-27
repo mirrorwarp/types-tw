@@ -1,21 +1,21 @@
-# Type definitions for TurboWarp
+# Type definitions for MirrorWarp
 
-This is a fork of [@turbowarp/types](https://github.com/TurboWarp/types) with additional types for TurboWarp's Scratch forks.
+This is a fork of [@turbowarp/types](https://github.com/MirrorWarp/types) with additional types for MirrorWarp's Scratch forks.
 
 Install with:
 
 ```
-npm install @turbowarp/types@git+https://github.com/TurboWarp/types-tw.git#tw
+npm install @mirrorwarp/types@git+https://github.com/MirrorWarp/types-tw.git#tw
 ```
 
-Then use in the same way as @turbowarp/types.
+Then use in the same way as @mirrorwarp/types.
 
 <!--
 # Type definitions for the Scratch VM and editor
 
 Scratch doesn't provide type definitions for their libraries, so we wrote our own.
 
-This repository only contains types for the vanilla (LLK) Scratch runtime and editor. For the additional types in the TurboWarp runtimes, see [@turbowarp/types-tw](https://github.com/TurboWarp/types-tw).
+This repository only contains types for the vanilla (LLK) Scratch runtime and editor. For the additional types in the MirrorWarp runtimes, see [@mirrorwarp/types-tw](https://github.com/MirrorWarp/types-tw).
 
 |Module|Status|
 |:-:|:-:|
@@ -36,7 +36,7 @@ This repository only contains types for the vanilla (LLK) Scratch runtime and ed
 First, install the types:
 
 ```
-npm install @turbowarp/types
+npm install @mirrorwarp/types
 ```
 
 Next, you must use `tsconfig.json` to configure TypeScript to know how to find the types.
@@ -51,14 +51,14 @@ Next, you must use `tsconfig.json` to configure TypeScript to know how to find t
 
     // Tell TypeScript where to find the types for Scratch libraries.
     "paths": {
-      "scratch-vm": ["./node_modules/@turbowarp/types/index.d.ts"],
-      "scratch-render": ["./node_modules/@turbowarp/types/index.d.ts"],
-      "scratch-svg-renderer": ["./node_modules/@turbowarp/types/index.d.ts"],
-      "scratch-render-fonts": ["./node_modules/@turbowarp/types/index.d.ts"],
-      "scratch-storage": ["./node_modules/@turbowarp/types/index.d.ts"],
-      "scratch-audio": ["./node_modules/@turbowarp/types/index.d.ts"],
-      "scratch-parser": ["./node_modules/@turbowarp/types/index.d.ts"],
-      "scratch-blocks": ["./node_modules/@turbowarp/types/index.d.ts"]
+      "scratch-vm": ["./node_modules/@mirrorwarp/types/index.d.ts"],
+      "scratch-render": ["./node_modules/@mirrorwarp/types/index.d.ts"],
+      "scratch-svg-renderer": ["./node_modules/@mirrorwarp/types/index.d.ts"],
+      "scratch-render-fonts": ["./node_modules/@mirrorwarp/types/index.d.ts"],
+      "scratch-storage": ["./node_modules/@mirrorwarp/types/index.d.ts"],
+      "scratch-audio": ["./node_modules/@mirrorwarp/types/index.d.ts"],
+      "scratch-parser": ["./node_modules/@mirrorwarp/types/index.d.ts"],
+      "scratch-blocks": ["./node_modules/@mirrorwarp/types/index.d.ts"]
     },
 
     // Recommended strictness settings. Change as you please.
